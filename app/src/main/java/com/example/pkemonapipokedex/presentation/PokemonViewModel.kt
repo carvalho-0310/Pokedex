@@ -12,22 +12,34 @@ import kotlinx.coroutines.withContext
 
 class PokemonViewModel(
     private val repository: PokemonRepositoryImpl
-) :ViewModel() {
+) : ViewModel() {
 
-    private val _pLiveData = MutableLiveData<InformationPokemon>()
-    val pLiveData : LiveData<InformationPokemon>
-    get() = _pLiveData
+    private val offset = 0
+    private val limit = 150
 
-    fun getPokemonName(name: String = "193") {
+    private val _namesPokemon = MutableLiveData<List<String>>()
+    val namesPokemon: LiveData<List<String>> = _namesPokemon
+
+    private val _listPokemon = MutableLiveData<List<InformationPokemon>>()
+    val listPokemon: LiveData<List<InformationPokemon>> = _listPokemon
+
+    fun getNamesPokemon() {
         CoroutineScope(Dispatchers.Default).launch {
-            val pokemon = withContext(Dispatchers.Default) {
-                repository.getInformationPokemon(name)
-            }
-            _pLiveData.postValue(pokemon)
+           _namesPokemon.postValue( repository.getListPokemon(limit, offset).names)
         }
+        getPokemonInformation()
     }
 
-    fun hasIsType(pokemon: InformationPokemon, cast : Int): Boolean = pokemon.types.lastIndex >= cast
-
-
+    fun getPokemonInformation() {
+        CoroutineScope(Dispatchers.Default).launch {
+            val pokemons = mutableListOf<InformationPokemon>()
+            _namesPokemon.value?.forEach {
+                val pokemon = withContext(Dispatchers.Default) {
+                    repository.getInformationPokemon(it)
+                }
+                pokemons.add(pokemon)
+            }
+            _listPokemon.postValue(pokemons)
+        }
+    }
 }

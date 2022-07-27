@@ -7,8 +7,7 @@ import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.domain.repository.PokemonRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-
-private const val OFFSET = 20
+import java.time.ZoneOffset
 
 class PokemonRepositoryImpl(
     private val mapperPokemon: PokemonMapperImpl,
@@ -16,8 +15,8 @@ class PokemonRepositoryImpl(
     private val api: PokemonApi
 ) : PokemonRepository {
 
-    override suspend fun getListPokemon(limit: Int): InformationPages =
-        withContext(Dispatchers.IO) { mapperPages.toDomain(api.getListPokemon(limit, OFFSET)) }
+    override suspend fun getListPokemon(limit: Int , offset: Int): InformationPages =
+        withContext(Dispatchers.IO) { mapperPages.toDomain(api.getListPokemon(limit, offset)) }
 
 
     override suspend fun getInformationPokemon(name: String): InformationPokemon =

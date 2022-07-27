@@ -1,0 +1,11 @@
+{
+  "effect_entries": [
+    {
+      "effect": "Inflicts regular damage.  Will not reduce the target's HP below 1."
+    }
+  ],
+  "id": 206,
+  "name": "false-swipe",
+  "power": 40,
+  "pp": 40
+}

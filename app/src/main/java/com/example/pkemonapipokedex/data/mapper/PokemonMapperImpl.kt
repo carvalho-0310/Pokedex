@@ -21,8 +21,8 @@ class PokemonMapperImpl : DomainMapper<InformationPokemonResponse, InformationPo
     private fun typesNames(types: List<Types>): List<TypePossible> {
         val result = mutableListOf<TypePossible>()
 
-        types.forEach { types ->
-            when (types.typeName.nameType.uppercase()) {
+        types.forEach {
+            when (it.typeName.nameType.uppercase()) {
                 TypePossible.BUG.name -> result.add(TypePossible.BUG)
                 TypePossible.DARK.name -> result.add(TypePossible.DARK)
                 TypePossible.DRAGON.name -> result.add(TypePossible.DRAGON)

@@ -11,7 +11,7 @@ data class InformationPokemon(
 
 enum class TypePossible(type: String) {
     BUG("bug"),
-    DARK ("dark"),
+    DARK("dark"),
     DRAGON("dragon"),
     ELECTRIC("electric"),
     FAIRY("fairy"),
@@ -22,9 +22,9 @@ enum class TypePossible(type: String) {
     GRASS("grass"),
     GROUND("ground"),
     ICE("ice"),
-    NORMAL ("normal"),
-    POISON( "poison"),
-    PSYCHIC( "psychic"),
+    NORMAL("normal"),
+    POISON("poison"),
+    PSYCHIC("psychic"),
     ROCK("rock"),
     STEEL("steel"),
     WATER("water"),

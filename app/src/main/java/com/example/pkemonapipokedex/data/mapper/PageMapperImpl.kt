@@ -11,7 +11,8 @@ class PageMapperImpl : DomainMapper<PagesPokemonResponse, InformationPages> {
             names = mapperList(from.results)
         )
     }
-    private fun mapperList(list :List<PokemonResponse>): List<String>{
+
+    private fun mapperList(list: List<PokemonResponse>): List<String> {
         val result = mutableListOf<String>()
         list.forEach {
             result.add(it.name)

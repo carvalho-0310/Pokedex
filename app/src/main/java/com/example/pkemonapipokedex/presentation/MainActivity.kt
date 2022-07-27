@@ -7,7 +7,8 @@ import com.example.pkemonapipokedex.R
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var  rvPokemon : RecyclerView
+
+    private lateinit var rvPokemon: RecyclerView
     private val viewModel: PokemonViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,11 +19,11 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.getNamesPokemon()
 
-        viewModel.namesPokemon.observe(this){
+        viewModel.namesPokemon.observe(this) {
             viewModel.getPokemonInformation()
         }
 
-        viewModel.listPokemon.observe(this){
+        viewModel.listPokemon.observe(this) {
             rvPokemon.adapter = ListPokemonAdapter(it)
         }
     }

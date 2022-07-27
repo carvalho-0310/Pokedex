@@ -15,7 +15,7 @@ class PokemonRepositoryImpl(
     private val api: PokemonApi
 ) : PokemonRepository {
 
-    override suspend fun getListPokemon(limit: Int , offset: Int): InformationPages =
+    override suspend fun getListPokemon(limit: Int, offset: Int): InformationPages =
         withContext(Dispatchers.IO) { mapperPages.toDomain(api.getListPokemon(limit, offset)) }
 
 

@@ -32,14 +32,14 @@ class PokemonViewModel(
 
     fun getPokemonInformation() {
         CoroutineScope(Dispatchers.Default).launch {
-            val pokemons = mutableListOf<InformationPokemon>()
+            val listPokemonInformation = mutableListOf<InformationPokemon>()
             _namesPokemon.value?.forEach {
                 val pokemon = withContext(Dispatchers.Default) {
                     repository.getInformationPokemon(it)
                 }
-                pokemons.add(pokemon)
+                listPokemonInformation.add(pokemon)
             }
-            _listPokemon.postValue(pokemons)
+            _listPokemon.postValue(listPokemonInformation)
         }
     }
 }

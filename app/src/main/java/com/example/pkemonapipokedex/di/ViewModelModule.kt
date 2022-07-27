@@ -14,7 +14,6 @@ val viewModelPokemon = module {
     factory { PageMapperImpl() }
     factory<PokemonApi> { get<Retrofit>().create(PokemonApi::class.java) }
     viewModel {
-        PokemonViewModel(PokemonRepositoryImpl(get(), get(), get()) )
-
+        PokemonViewModel(PokemonRepositoryImpl(get(), get(), get()))
     }
 }

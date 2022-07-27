@@ -2,7 +2,6 @@ package com.example.pkemonapipokedex.data.response
 
 import com.google.gson.annotations.SerializedName
 
-
 data class InformationPokemonResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("name") val name: String,
@@ -25,9 +24,9 @@ data class OfficialArtwork(
 )
 
 data class Types(
-@SerializedName("type") val typeName:TypeName
+    @SerializedName("type") val typeName: TypeName
 )
 
 data class TypeName(
-   @SerializedName ("name") val nameType :String
+    @SerializedName("name") val nameType: String
 )

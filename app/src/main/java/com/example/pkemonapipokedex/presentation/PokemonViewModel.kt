@@ -3,6 +3,7 @@ package com.example.pkemonapipokedex.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.pkemonapipokedex.data.repository.PokemonRepositoryImpl
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import kotlinx.coroutines.CoroutineScope
@@ -17,29 +18,39 @@ class PokemonViewModel(
     private val offset = 0
     private val limit = 150
 
-    private val _namesPokemon = MutableLiveData<List<String>>()
-    val namesPokemon: LiveData<List<String>> = _namesPokemon
+    private var namesPokemon = listOf<String>()
 
-    private val _listPokemon = MutableLiveData<List<InformationPokemon>>()
-    val listPokemon: LiveData<List<InformationPokemon>> = _listPokemon
+    private val _listPokemon = MutableLiveData<ResponseMainViewFlow>()
+    val listPokemon: LiveData<ResponseMainViewFlow> = _listPokemon
 
     fun getNamesPokemon() {
-        CoroutineScope(Dispatchers.Default).launch {
-           _namesPokemon.postValue( repository.getListPokemon(limit, offset).names)
+        viewModelScope.launch {
+                namesPokemon = repository.getListPokemon(limit, offset).names
+                getPokemonInformation()
         }
-        getPokemonInformation()
     }
 
-    fun getPokemonInformation() {
-        CoroutineScope(Dispatchers.Default).launch {
+    private fun getPokemonInformation() {
+        viewModelScope.launch {
             val listPokemonInformation = mutableListOf<InformationPokemon>()
-            _namesPokemon.value?.forEach {
+            namesPokemon.forEach {
                 val pokemon = withContext(Dispatchers.Default) {
                     repository.getInformationPokemon(it)
                 }
                 listPokemonInformation.add(pokemon)
             }
-            _listPokemon.postValue(listPokemonInformation)
+            val response =  ResponseMainViewFlow(
+                listPokemonInformation,
+                false,
+                true
+            )
+            _listPokemon.postValue(response)
         }
     }
 }
+
+data class ResponseMainViewFlow(
+    val listPokemons: List<InformationPokemon>,
+    val loading: Boolean,
+    val view: Boolean
+)

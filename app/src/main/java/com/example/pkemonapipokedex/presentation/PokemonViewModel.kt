@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pkemonapipokedex.data.repository.PokemonRepositoryImpl
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
-import kotlinx.coroutines.CoroutineScope
+import com.example.pkemonapipokedex.presentation.PokemonViewModel.Response.ResponseMainViewFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -16,7 +16,7 @@ class PokemonViewModel(
 ) : ViewModel() {
 
     private val offset = 0
-    private val limit = 150
+    private val limit = 151
 
     private var namesPokemon = listOf<String>()
 
@@ -39,18 +39,20 @@ class PokemonViewModel(
                 }
                 listPokemonInformation.add(pokemon)
             }
-            val response =  ResponseMainViewFlow(
+            val response = ResponseMainViewFlow(
                 listPokemonInformation,
-                false,
-                true
+                loading = false,
+                view = true
             )
             _listPokemon.postValue(response)
         }
     }
-}
 
-data class ResponseMainViewFlow(
-    val listPokemons: List<InformationPokemon>,
-    val loading: Boolean,
-    val view: Boolean
-)
+    sealed class Response{
+        data class ResponseMainViewFlow(
+            val listPokemon: List<InformationPokemon>,
+            val loading: Boolean,
+            val view: Boolean
+        ): Response()
+    }
+}

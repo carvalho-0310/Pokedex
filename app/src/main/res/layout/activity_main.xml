@@ -24,4 +24,16 @@
         tools:context=".view.PresentationCharacterListActivity"
         tools:listitem="@layout/model_main_activity" />
 
+    <View
+        android:id="@+id/pokeboll"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:background="@drawable/pokebola"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/image_pokemon"
+        app:layout_constraintStart_toStartOf="@+id/image_pokemon"
+        app:layout_constraintTop_toTopOf="@+id/image_pokemon" />
+
 </FrameLayout>

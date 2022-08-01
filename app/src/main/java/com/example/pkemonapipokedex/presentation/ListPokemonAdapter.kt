@@ -3,10 +3,10 @@ package com.example.pkemonapipokedex.presentation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ProgressBar
 import androidx.appcompat.widget.AppCompatCheckedTextView
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pkemonapipokedex.R
@@ -16,13 +16,16 @@ import com.example.pkemonapipokedex.domain.model.TypePossible
 private const val VISIBLE = 0
 private const val GONE = 8
 
-class ListPokemonAdapter(private val list: List<InformationPokemon>) :
+class ListPokemonAdapter(
+    private val pokemonActivity: MainActivity,
+    private val list: List<InformationPokemon>
+) :
     RecyclerView.Adapter<ListPokemonAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(
-            layoutInflater.inflate(R.layout.model_main_activity, parent, false)
+            layoutInflater.inflate(R.layout.model_main_activity, parent, false), pokemonActivity
         )
     }
 
@@ -34,7 +37,8 @@ class ListPokemonAdapter(private val list: List<InformationPokemon>) :
         return list.size
     }
 
-    class ViewHolder( itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View, pokemonActivity: MainActivity) :
+        RecyclerView.ViewHolder(itemView) {
 
         private val imagePokemon: AppCompatImageView = itemView.findViewById(R.id.image_pokemon)
         private val idPokemon: AppCompatCheckedTextView = itemView.findViewById(R.id.id_pokemon)
@@ -106,28 +110,34 @@ class ListPokemonAdapter(private val list: List<InformationPokemon>) :
 
         private fun setBackgroundColorType(card: CardView, type: TypePossible) {
             when (type) {
-                TypePossible.BUG -> card.setCardBackgroundColor(card.resources.getColor(R.color.bug))
-                TypePossible.DARK -> card.setCardBackgroundColor(card.resources.getColor(R.color.dark))
-                TypePossible.DRAGON -> card.setCardBackgroundColor(card.resources.getColor(R.color.dragon))
-                TypePossible.ELECTRIC -> card.setCardBackgroundColor(card.resources.getColor(R.color.electric))
-                TypePossible.FAIRY -> card.setCardBackgroundColor(card.resources.getColor(R.color.fairy))
-                TypePossible.FIGHTING -> card.setCardBackgroundColor(card.resources.getColor(R.color.fighting))
-                TypePossible.FIRE -> card.setCardBackgroundColor(card.resources.getColor(R.color.fire))
-                TypePossible.FLYING -> card.setCardBackgroundColor(card.resources.getColor(R.color.flying))
-                TypePossible.GHOST -> card.setCardBackgroundColor(card.resources.getColor(R.color.ghost))
-                TypePossible.GRASS -> card.setCardBackgroundColor(card.resources.getColor(R.color.grass))
-                TypePossible.GROUND -> card.setCardBackgroundColor(card.resources.getColor(R.color.ground))
-                TypePossible.ICE -> card.setCardBackgroundColor(card.resources.getColor(R.color.ice))
-                TypePossible.NORMAL -> card.setCardBackgroundColor(card.resources.getColor(R.color.normal))
-                TypePossible.POISON -> card.setCardBackgroundColor(card.resources.getColor(R.color.poison))
-                TypePossible.PSYCHIC -> card.setCardBackgroundColor(card.resources.getColor(R.color.psychic))
-                TypePossible.ROCK -> card.setCardBackgroundColor(card.resources.getColor(R.color.rock))
-                TypePossible.STEEL -> card.setCardBackgroundColor(card.resources.getColor(R.color.steel))
-                TypePossible.WATER -> card.setCardBackgroundColor(card.resources.getColor(R.color.water))
+                TypePossible.BUG -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.bug))
+                TypePossible.DARK -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.dark))
+                TypePossible.DRAGON -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.dragon))
+                TypePossible.ELECTRIC -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.electric))
+                TypePossible.FAIRY -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.fairy))
+                TypePossible.FIGHTING -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.fighting))
+                TypePossible.FIRE -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.fire))
+                TypePossible.FLYING -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.flying))
+                TypePossible.GHOST -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.ghost))
+                TypePossible.GRASS -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.grass))
+                TypePossible.GROUND -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.ground))
+                TypePossible.ICE -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.ice))
+                TypePossible.NORMAL -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.normal))
+                TypePossible.POISON -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.poison))
+                TypePossible.PSYCHIC -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.psychic))
+                TypePossible.ROCK -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.rock))
+                TypePossible.STEEL -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.steel))
+                TypePossible.WATER -> card.setCardBackgroundColor(ContextCompat.getColor(card.context ,R.color.water))
             }
         }
 
         private fun hasIsType(pokemon: InformationPokemon, cast: Int): Boolean =
             pokemon.types.lastIndex >= cast
+
+        init {
+            itemView.setOnClickListener {
+                pokemonActivity.statExplosion()
+            }
+        }
     }
 }

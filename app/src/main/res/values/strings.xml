@@ -2,4 +2,10 @@
     <string name="app_name">Pokedex</string>
     <string name="id_pokemon">id - %s</string>
     <string name="name_pokemon">Nome - %s</string>
+    <string name="title_activity_information_pokemon">InformationPokemonActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="activity_main">Main Activity</string>
+    <string name="activity_information_pokemon">Information Pokemon Activity</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>

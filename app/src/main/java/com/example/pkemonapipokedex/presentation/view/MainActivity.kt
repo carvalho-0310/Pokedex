@@ -1,4 +1,4 @@
-package com.example.pkemonapipokedex.presentation
+package com.example.pkemonapipokedex.presentation.view
 
 import android.os.Bundle
 import android.view.View
@@ -8,16 +8,19 @@ import android.view.animation.AnimationUtils
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.recyclerview.widget.RecyclerView
 import com.example.pkemonapipokedex.R
+import com.example.pkemonapipokedex.presentation.PokemonViewModel
 import com.example.pkemonapipokedex.presentation.PokemonViewModel.Response.ResponseMainViewFlow
+import com.example.pkemonapipokedex.presentation.startAnimation
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Thread.sleep
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var rvPokemon: RecyclerView
     private lateinit var loading: ProgressBar
     private lateinit var pokeBoll: View
+    private lateinit var toolBar: View
+
     private lateinit var animationExplosion: Animation
     private val viewModel: PokemonViewModel by viewModel()
 
@@ -32,21 +35,26 @@ class MainActivity : AppCompatActivity() {
                     interpolator = AccelerateDecelerateInterpolator()
                 }
 
-        rvPokemon = findViewById(R.id.rv_pokemon)
+
         loading = findViewById(R.id.loading)
         pokeBoll = findViewById(R.id.pokeboll)
+        toolBar =findViewById(R.id.tool_bar)
 
         viewModel.getNamesPokemon()
 
+        viewModel.aciton.observe(this){
+            statExplosion()
+        }
+
         viewModel.listPokemon.observe(this) {
-            rvPokemon.adapter = ListPokemonAdapter(this, it.listPokemon)
             setVisibility(it)
         }
     }
 
     private fun setVisibility(response: ResponseMainViewFlow){
         loading.isVisible = response.loading
-        rvPokemon.isVisible = response.view
+        toolBar.isVisible = true
+
     }
 
     fun statExplosion() {

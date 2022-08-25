@@ -1,4 +1,4 @@
-package com.example.pkemonapipokedex.presentation
+package com.example.pkemonapipokedex.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -12,12 +12,13 @@ import com.bumptech.glide.Glide
 import com.example.pkemonapipokedex.R
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.domain.model.TypePossible
+import com.example.pkemonapipokedex.presentation.view.ListPokemonsFragment
 
 private const val VISIBLE = 0
 private const val GONE = 8
 
 class ListPokemonAdapter(
-    private val pokemonActivity: MainActivity,
+    private val pokemonFragment: ListPokemonsFragment,
     private val list: List<InformationPokemon>
 ) :
     RecyclerView.Adapter<ListPokemonAdapter.ViewHolder>() {
@@ -25,7 +26,7 @@ class ListPokemonAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(
-            layoutInflater.inflate(R.layout.model_main_activity, parent, false), pokemonActivity
+            layoutInflater.inflate(R.layout.model_card_pokemon, parent, false), pokemonFragment
         )
     }
 
@@ -37,7 +38,7 @@ class ListPokemonAdapter(
         return list.size
     }
 
-    class ViewHolder(itemView: View, pokemonActivity: MainActivity) :
+    class ViewHolder(itemView: View, pokemonFragment: ListPokemonsFragment) :
         RecyclerView.ViewHolder(itemView) {
 
         private val imagePokemon: AppCompatImageView = itemView.findViewById(R.id.image_pokemon)
@@ -136,7 +137,7 @@ class ListPokemonAdapter(
 
         init {
             itemView.setOnClickListener {
-                pokemonActivity.statExplosion()
+                pokemonFragment.goToInformation()
             }
         }
     }

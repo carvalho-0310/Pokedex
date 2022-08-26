@@ -15,151 +15,72 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/background_color"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/image_pokemon"
             android:layout_width="180dp"
             android:layout_height="180dp"
+            app:layout_constraintBottom_toTopOf="@+id/view1"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             tools:src="@tools:sample/avatars" />
 
         <View
-            android:id="@+id/v_0ne"
+            android:id="@+id/view1"
             android:layout_width="180dp"
             android:layout_height="1dp"
             android:background="@color/black_pokemon"
+            app:layout_constraintBottom_toTopOf="@+id/id_pokemon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_pokemon" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/type_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="4dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/bugOptional"
-            app:cardCornerRadius="32dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_0ne"
-            tools:ignore="MissingConstraints">
-
-            <androidx.appcompat.widget.AppCompatCheckedTextView
-                android:id="@+id/text_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:textColor="@color/black" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/type_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="4dp"
-            app:cardCornerRadius="32dp"
-            app:layout_constraintStart_toEndOf="@+id/type_1"
-            app:layout_constraintTop_toTopOf="@+id/type_1"
-            tools:ignore="MissingConstraints">
-
-            <androidx.appcompat.widget.AppCompatCheckedTextView
-                android:id="@+id/text_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:textColor="@color/black" />
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/type_3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="4dp"
-            app:cardCornerRadius="32dp"
-            app:layout_constraintStart_toEndOf="@+id/type_2"
-            app:layout_constraintTop_toTopOf="@+id/type_2"
-            tools:ignore="MissingConstraints">
-
-            <androidx.appcompat.widget.AppCompatCheckedTextView
-                android:id="@+id/text_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:textColor="@color/black" />
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/type_4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="32dp"
-            app:layout_constraintStart_toEndOf="@+id/type_3"
-            app:layout_constraintTop_toTopOf="@+id/type_3"
-            tools:ignore="MissingConstraints">
-
-            <androidx.appcompat.widget.AppCompatCheckedTextView
-                android:id="@+id/text_4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:textColor="@color/black" />
-
-        </androidx.cardview.widget.CardView>
-
-        <View
-            android:id="@+id/v_two"
-            android:layout_width="180dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/black_pokemon"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/type_1" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/id_pokemon"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="8dp"
             android:text="@string/id_pokemon"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_two"
-            tools:text="id - 132"/>
+            tools:text="Id - 64" />
 
         <View
-            android:id="@+id/v_tree"
+            android:id="@+id/view2"
             android:layout_width="180dp"
             android:layout_height="1dp"
-            android:layout_marginTop="4dp"
             android:background="@color/black_pokemon"
+            app:layout_constraintBottom_toTopOf="@+id/name_pokemon"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/id_pokemon" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.appcompat.widget.AppCompatCheckedTextView
             android:id="@+id/name_pokemon"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginHorizontal="8dp"
             android:layout_marginBottom="4dp"
             android:text="@string/name_pokemon"
+            android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/v_tree"
-            tools:text="Nome - ditto"/>
+            tools:text="Nome - ditto" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

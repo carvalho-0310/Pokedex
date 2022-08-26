@@ -7,12 +7,15 @@
 
     <fragment
         android:id="@+id/listPokemonsFragment"
-        android:name="com.example.pkemonapipokedex.presentation.view.ListPokemonsFragment"
+        android:name="com.example.pkemonapipokedex.presentation.view.ListPokemonFragment"
         android:label="ListPokemonsFragment"
         tools:layout="@layout/fragment_list_pokemons">
         <action
             android:id="@+id/goToInformation"
             app:destination="@id/pokemonInformationFragment" />
+        <argument
+            android:name="name"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/pokemonInformationFragment"

@@ -13,7 +13,6 @@ import com.example.pkemonapipokedex.presentation.PokemonViewModel
 import com.example.pkemonapipokedex.presentation.PokemonViewModel.Response.ResponseMainViewFlow
 import com.example.pkemonapipokedex.presentation.startAnimation
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Thread.sleep
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,20 +28,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         animationExplosion =
-            AnimationUtils.loadAnimation(this, R.anim.bokeboll_explosion_animation)
-                .apply {
-                    duration = 2500
-                    interpolator = AccelerateDecelerateInterpolator()
-                }
-
+                AnimationUtils.loadAnimation(this, R.anim.bokeboll_explosion_animation)
+                        .apply {
+                            duration = 2500
+                            interpolator = AccelerateDecelerateInterpolator()
+                        }
 
         loading = findViewById(R.id.loading)
         pokeBoll = findViewById(R.id.pokeboll)
-        toolBar =findViewById(R.id.tool_bar)
+        toolBar = findViewById(R.id.tool_bar)
 
         viewModel.getNamesPokemon()
 
-        viewModel.aciton.observe(this){
+        viewModel.acton.observe(this) {
             statExplosion()
         }
 
@@ -51,13 +49,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setVisibility(response: ResponseMainViewFlow){
+    private fun setVisibility(response: ResponseMainViewFlow) {
         loading.isVisible = response.loading
         toolBar.isVisible = true
-
     }
 
-    fun statExplosion() {
+    private fun statExplosion() {
         pokeBoll.startAnimation(animationExplosion) {
             pokeBoll.isVisible = false
         }

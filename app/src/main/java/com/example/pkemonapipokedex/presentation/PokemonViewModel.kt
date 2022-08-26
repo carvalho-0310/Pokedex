@@ -23,8 +23,8 @@ class PokemonViewModel(
     private val _listPokemon = MutableLiveData<ResponseMainViewFlow>()
     val listPokemon: LiveData<ResponseMainViewFlow> = _listPokemon
 
-    private val _aciton = MutableLiveData<Animeitio>()
-    val aciton: LiveData<Animeitio> = _aciton
+    private val _acton = MutableLiveData<ActionAnimation>()
+    val acton: LiveData<ActionAnimation> = _acton
 
     fun getNamesPokemon() {
         viewModelScope.launch {
@@ -51,12 +51,12 @@ class PokemonViewModel(
         }
     }
 
-    fun startAnimaision(){
-        _aciton.postValue(Animeitio.Start)
+    fun startAnimation(){
+        _acton.postValue(ActionAnimation.Start)
     }
 
-    sealed class Animeitio{
-        object Start : Animeitio()
+    sealed class ActionAnimation{
+        object Start : ActionAnimation()
     }
 
     sealed class Response{

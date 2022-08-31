@@ -1,5 +1,6 @@
 package com.example.pkemonapipokedex.data.repository
 
+import com.example.pkemonapipokedex.data.response.InformationMoveResponse
 import com.example.pkemonapipokedex.data.response.InformationPokemonResponse
 import com.example.pkemonapipokedex.data.response.PagesPokemonResponse
 import retrofit2.http.GET
@@ -17,4 +18,9 @@ interface PokemonApi {
     suspend fun getInformationPokemon(
         @Path("name") name: String
     ): InformationPokemonResponse
+
+    @GET("move/{move}/")
+    suspend fun requestMoves(
+        @Path("move") move: String
+    ): InformationMoveResponse
 }

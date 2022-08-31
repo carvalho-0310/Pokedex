@@ -18,8 +18,10 @@
         <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout-v26/model_types_pokemon.xml" value="0.365625" />
         <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout/activity_main.xml" value="0.365625" />
         <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout/fragment_list_pokemons.xml" value="0.365625" />
-        <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout/fragment_pokemon_information.xml" value="0.25" />
+        <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout/fragment_pokemon_information.xml" value="0.33" />
+        <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout/information_image_view.xml" value="0.45517241379310347" />
         <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout/model_card_pokemon.xml" value="0.33" />
+        <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout/model_move.xml" value="0.5" />
         <entry key="..\:/Users/he-ma/AndroidStudioProjects/Pokedex/app/src/main/res/layout/model_types_pokemon.xml" value="0.67" />
         <entry key="..\:/Users/he-ma/StudioProjects/Pokedex/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.201" />
         <entry key="..\:/Users/he-ma/StudioProjects/Pokedex/app/src/main/res/drawable/pokebola.xml" value="0.201" />

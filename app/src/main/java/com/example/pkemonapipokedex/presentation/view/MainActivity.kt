@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var loading: ProgressBar
     private lateinit var pokeBoll: View
-    private lateinit var toolBar: View
+    private lateinit var toolbar: View
 
     private lateinit var animationExplosion: Animation
     private val viewModel: PokemonViewModel by viewModel()
@@ -28,20 +28,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         animationExplosion =
-                AnimationUtils.loadAnimation(this, R.anim.bokeboll_explosion_animation)
-                        .apply {
-                            duration = 2500
-                            interpolator = AccelerateDecelerateInterpolator()
-                        }
+            AnimationUtils.loadAnimation(this, R.anim.bokeboll_explosion_animation)
+                .apply {
+                    duration = 2500
+                    interpolator = AccelerateDecelerateInterpolator()
+                }
 
         loading = findViewById(R.id.loading)
         pokeBoll = findViewById(R.id.pokeboll)
-        toolBar = findViewById(R.id.tool_bar)
+        toolbar = findViewById(R.id.toolbar_id)
 
         viewModel.getNamesPokemon()
 
         viewModel.acton.observe(this) {
-            statExplosion()
+            startExplosion()
         }
 
         viewModel.listPokemon.observe(this) {
@@ -51,12 +51,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setVisibility(response: ResponseMainViewFlow) {
         loading.isVisible = response.loading
-        toolBar.isVisible = true
+        toolbar.isVisible = true
     }
 
-    private fun statExplosion() {
+    private fun startExplosion() {
         pokeBoll.startAnimation(animationExplosion) {
             pokeBoll.isVisible = false
         }
+        toolbar.isVisible = !toolbar.isVisible
     }
 }

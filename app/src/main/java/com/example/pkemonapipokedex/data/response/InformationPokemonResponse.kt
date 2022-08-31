@@ -7,11 +7,21 @@ data class InformationPokemonResponse(
     @SerializedName("name") val name: String,
     @SerializedName("height") val height: Int,
     @SerializedName("weight") val weight: Int,
+    @SerializedName("moves") val lisMoves: List<Moves>,
     @SerializedName("sprites") val sprites: Sprites,
     @SerializedName("types") val types: List<Types>,
 )
 
+data class Moves(
+    @SerializedName("move") val move: Move,
+)
+
+data class Move(
+    @SerializedName("name") val name: String,
+)
+
 data class Sprites(
+    @SerializedName("front_default") val imageToolbar: String,
     @SerializedName("other") val other: Other
 )
 

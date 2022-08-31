@@ -1,5 +1,6 @@
 package com.example.pkemonapipokedex.di
 
+import com.example.pkemonapipokedex.data.mapper.MovesMapperImpl
 import com.example.pkemonapipokedex.data.mapper.PageMapperImpl
 import com.example.pkemonapipokedex.data.mapper.PokemonMapperImpl
 import com.example.pkemonapipokedex.data.repository.PokemonApi
@@ -12,8 +13,9 @@ import retrofit2.Retrofit
 val viewModelPokemon = module {
     factory { PokemonMapperImpl() }
     factory { PageMapperImpl() }
+    factory { MovesMapperImpl() }
     factory<PokemonApi> { get<Retrofit>().create(PokemonApi::class.java) }
     viewModel {
-        PokemonViewModel(PokemonRepositoryImpl(get(), get(), get()))
+        PokemonViewModel(PokemonRepositoryImpl(get(), get(), get(), get()))
     }
 }

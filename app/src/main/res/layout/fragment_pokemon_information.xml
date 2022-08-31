@@ -3,12 +3,11 @@
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/block_information"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#E6E6E6"
-    android:fillViewport="true"
     android:backgroundTint="@color/red_pokemon"
+    android:fillViewport="true"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -16,111 +15,158 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/white_pokemon"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_pokemon_Presentation"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_information_id"
+            tools:src="@tools:sample/avatars" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView2"
-            android:layout_width="wrap_content"
+            android:id="@+id/weight_id"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="152dp"
-            android:text="height:"
+            android:layout_marginTop="60dp"
+            android:text="@string/weight"
             android:textColor="@color/black_pokemon"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/appCompatTextView"
-            android:layout_width="wrap_content"
+            android:id="@+id/height_id"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
             android:layout_marginTop="4dp"
-            android:text="weight:"
+            android:text="@string/height"
             android:textColor="@color/black_pokemon"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/appCompatTextView2"
-            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView2" />
-
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/imageFilterView"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:layout_constraintBottom_toTopOf="@+id/view"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintTop_toBottomOf="@+id/weight_id" />
+
 
         <View
             android:id="@+id/view"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginHorizontal="12dp"
-            android:layout_marginBottom="4dp"
             android:background="@color/black_pokemon"
             app:layout_constraintBottom_toTopOf="@+id/textView"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/image_pokemon_Presentation" />
 
-        <TextView
+         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="Type"
+            android:text="@string/type"
             android:textColor="@color/black_pokemon"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            app:layout_constraintStart_toStartOf="@+id/view" />
+            app:layout_constraintBottom_toTopOf="@+id/recycler_view_type"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recycler_view_type"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginHorizontal="12dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/view2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
             tools:listitem="@layout/model_types_pokemon" />
 
         <View
             android:id="@+id/view2"
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:layout_marginHorizontal="12dp"
             android:background="@color/black_pokemon"
             app:layout_constraintBottom_toTopOf="@+id/appCompatCheckedTextView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.appcompat.widget.AppCompatCheckedTextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/appCompatCheckedTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="moves"
-            android:layout_marginStart="12dp"
+            android:text="@string/moves"
             android:textColor="@color/black_pokemon"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/recycler_view_moves"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_moves"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginHorizontal="12dp"
-            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            app:spanCount="2"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/model_types_pokemon" />
+            tools:listitem="@layout/model_move" />
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/toolbar_information_id"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            android:background="@color/black_pokemon"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="15dp"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/image_toolbar_information"
+                android:layout_width="70dp"
+                android:layout_height="70dp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/text_toolbar_information"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:gravity="center_vertical"
+                android:textSize="20sp"
+                android:text="@string/toolbar_information"
+                android:textColor="@color/white_pokemon"
+                android:textStyle="bold" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </androidx.core.widget.NestedScrollView>

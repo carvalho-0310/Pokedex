@@ -1,19 +1,14 @@
 package com.example.pkemonapipokedex.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pkemonapipokedex.R
+import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.presentation.adapter.ListPokemonAdapter
-import kotlinx.coroutines.Delay
-import kotlinx.coroutines.delay
-import okhttp3.internal.wait
-import java.lang.Thread.sleep
 
 class ListPokemonFragment : MainViewModel() {
 
@@ -28,14 +23,14 @@ class ListPokemonFragment : MainViewModel() {
         super.onViewCreated(view, savedInstanceState)
 
         rvPokemon = view.findViewById(R.id.rv_pokemon)
-
         super.mainViewModel.listPokemon.observe(viewLifecycleOwner) {
             rvPokemon.adapter = ListPokemonAdapter(this, it.listPokemon)
         }
     }
 
-    fun openInformation() {
+    fun openInformation(pokemon : InformationPokemon) {
         mainViewModel.startAnimation()
-        findNavController().navigate(R.id.goToInformation)
+        val selectedPokemon = ListPokemonFragmentDirections.goToInformation(pokemon)
+        findNavController().navigate(selectedPokemon)
     }
 }

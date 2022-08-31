@@ -10,7 +10,7 @@ open class MyApp : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MyApp)
-            modules(mainModule, viewModelPokemon)
+            modules(retrofitModule, viewModelPokemon)
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.pkemonapipokedex.data.mapper
 
 import com.example.pkemonapipokedex.data.response.InformationPokemonResponse
+import com.example.pkemonapipokedex.data.response.Moves
 import com.example.pkemonapipokedex.data.response.Types
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.domain.model.TypePossible
@@ -13,9 +14,19 @@ class PokemonMapperImpl : DomainMapper<InformationPokemonResponse, InformationPo
             name = from.name,
             height = from.height,
             weight = from.weight,
+            listMoves = moves(from.lisMoves),
+            spritesToolbar = from.sprites.imageToolbar,
             sprites = from.sprites.other.officialArtwork.imageUrl,
             types = typesNames(from.types)
         )
+    }
+
+    private fun moves(moves :List<Moves>):List<String>{
+        val result = mutableListOf<String>()
+        moves.forEach {
+         result.add(it.move.name)
+        }
+        return result
     }
 
     private fun typesNames(types: List<Types>): List<TypePossible> {

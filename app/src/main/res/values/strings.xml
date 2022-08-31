@@ -8,4 +8,12 @@
     <string name="activity_information_pokemon">Information Pokemon Activity</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="height">height: %s M</string>
+    <string name="weight">weight: %s Kg</string>
+    <string name="toolbar_information">ID#  %s   Name - %s </string>
+    <string name="type">Type</string>
+    <string name="moves">Moves</string>
+    <string name="power">power: %s</string>
+    <string name="pp">pp: %s</string>
+
 </resources>

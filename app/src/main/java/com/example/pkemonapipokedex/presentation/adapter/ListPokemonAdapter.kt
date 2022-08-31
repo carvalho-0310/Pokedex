@@ -12,8 +12,8 @@ import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.presentation.view.ListPokemonFragment
 
 class ListPokemonAdapter(
-        private val pokemonFragment: ListPokemonFragment,
-        private val list: List<InformationPokemon>
+    private val pokemonFragment: ListPokemonFragment,
+    private val list: List<InformationPokemon>
 ) :
     RecyclerView.Adapter<ListPokemonAdapter.ViewHolder>() {
 
@@ -28,9 +28,7 @@ class ListPokemonAdapter(
         holder.binding(list[position])
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
+    override fun getItemCount() = list.size
 
     class ViewHolder(itemView: View, pokemonFragment: ListPokemonFragment) :
         RecyclerView.ViewHolder(itemView) {

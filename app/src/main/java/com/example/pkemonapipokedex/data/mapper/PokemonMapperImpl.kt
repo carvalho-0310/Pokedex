@@ -5,6 +5,7 @@ import com.example.pkemonapipokedex.data.response.Moves
 import com.example.pkemonapipokedex.data.response.Types
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.domain.model.TypePossible
+import java.math.BigDecimal
 
 class PokemonMapperImpl : DomainMapper<InformationPokemonResponse, InformationPokemon> {
 
@@ -12,8 +13,8 @@ class PokemonMapperImpl : DomainMapper<InformationPokemonResponse, InformationPo
         return InformationPokemon(
             id = from.id,
             name = from.name,
-            height = from.height,
-            weight = from.weight,
+            height = BigDecimal(from.height.toString()).divide(BigDecimal("10")),
+            weight = BigDecimal( from.weight.toString()).divide(BigDecimal("10")),
             listMoves = moves(from.lisMoves),
             spritesToolbar = from.sprites.imageToolbar,
             sprites = from.sprites.other.officialArtwork.imageUrl,

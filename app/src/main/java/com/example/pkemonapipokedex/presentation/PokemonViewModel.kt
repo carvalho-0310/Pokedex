@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.pkemonapipokedex.data.repository.PokemonRepositoryImpl
-import com.example.pkemonapipokedex.domain.model.InformationMove
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
-import com.example.pkemonapipokedex.presentation.PokemonViewModel.MovesInformation.*
 import com.example.pkemonapipokedex.presentation.PokemonViewModel.Response.ResponseMainViewFlow
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +16,7 @@ class PokemonViewModel(
 ) : ViewModel() {
 
     private val offset = 0
-    private val limit = 151
+    private val limit = 15
 
     private var namesPokemon = listOf<String>()
 
@@ -30,18 +28,14 @@ class PokemonViewModel(
     val acton: LiveData<ActionView>
         get() = _acton
 
-    private val _listMoves = MutableLiveData<MovesFlow>()
-    val listMoves: LiveData<MovesFlow>
-        get() = _listMoves
-
-    fun getNamesPokemon() {
+    fun requestNamesPokemon() {
         viewModelScope.launch {
             namesPokemon = repository.getListPokemon(limit, offset).names
-            getPokemonInformation()
+            requestInformation()
         }
     }
 
-    private fun getPokemonInformation() {
+    private fun requestInformation() {
         viewModelScope.launch {
             val listPokemonInformation = mutableListOf<InformationPokemon>()
             namesPokemon.forEach {
@@ -59,22 +53,6 @@ class PokemonViewModel(
         }
     }
 
-    fun requestMoves(moves: List<String>) {
-        val listMoveInformation = mutableListOf<InformationMove>()
-        viewModelScope.launch {
-            moves.forEach {
-                val move = withContext(Dispatchers.Default) {
-                    repository.requestMoves(it)
-                }
-                listMoveInformation.add(move)
-            }
-            val response = MovesFlow(
-                listMoveInformation
-            )
-            _listMoves.postValue(response)
-        }
-    }
-
     fun startAnimation() {
         _acton.postValue(ActionView.Start)
     }
@@ -89,11 +67,5 @@ class PokemonViewModel(
             val loading: Boolean,
             val view: Boolean
         ) : Response()
-    }
-
-    sealed class MovesInformation {
-        data class MovesFlow(
-            val moves: List<InformationMove>
-        )
     }
 }

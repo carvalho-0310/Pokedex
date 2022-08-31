@@ -23,14 +23,21 @@ class ListPokemonFragment : MainViewModel() {
         super.onViewCreated(view, savedInstanceState)
 
         rvPokemon = view.findViewById(R.id.rv_pokemon)
+
+        setObserve()
+    }
+
+    private fun setObserve(){
         super.mainViewModel.listPokemon.observe(viewLifecycleOwner) {
             rvPokemon.adapter = ListPokemonAdapter(this, it.listPokemon)
         }
     }
 
     fun openInformation(pokemon : InformationPokemon) {
-        mainViewModel.startAnimation()
+
         val selectedPokemon = ListPokemonFragmentDirections.goToInformation(pokemon)
-        findNavController().navigate(selectedPokemon)
+        findNavController().navigate(selectedPokemon).apply {
+            mainViewModel.startAnimation()
+        }
     }
 }

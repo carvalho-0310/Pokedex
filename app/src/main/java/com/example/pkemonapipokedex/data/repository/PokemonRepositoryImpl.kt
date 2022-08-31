@@ -1,6 +1,5 @@
 package com.example.pkemonapipokedex.data.repository
 
-import com.example.pkemonapipokedex.data.mapper.MovesMapperImpl
 import com.example.pkemonapipokedex.data.mapper.PageMapperImpl
 import com.example.pkemonapipokedex.data.mapper.PokemonMapperImpl
 import com.example.pkemonapipokedex.domain.model.InformationMove
@@ -13,7 +12,6 @@ import kotlinx.coroutines.withContext
 class PokemonRepositoryImpl(
     private val mapperPokemon: PokemonMapperImpl,
     private val mapperPages: PageMapperImpl,
-    private val mapperMove: MovesMapperImpl,
     private val api: PokemonApi
 ) : PokemonRepository {
 
@@ -23,6 +21,4 @@ class PokemonRepositoryImpl(
     override suspend fun getInformationPokemon(name: String): InformationPokemon =
         withContext(Dispatchers.IO) { mapperPokemon.toDomain(api.getInformationPokemon(name)) }
 
-    override suspend fun requestMoves(move: String): InformationMove =
-        withContext(Dispatchers.IO) { mapperMove.toDomain(api.requestMoves(move)) }
 }

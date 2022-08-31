@@ -1,12 +1,13 @@
 package com.example.pkemonapipokedex.domain.model
 
 import java.io.Serializable
+import java.math.BigDecimal
 
 data class InformationPokemon(
     val id: Int,
     val name: String,
-    val height: Int,
-    val weight: Int,
+    val height: BigDecimal,
+    val weight: BigDecimal,
     val listMoves : List<String>,
     val spritesToolbar: String,
     val sprites: String,

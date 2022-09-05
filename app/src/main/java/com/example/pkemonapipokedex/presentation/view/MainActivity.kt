@@ -1,5 +1,7 @@
 package com.example.pkemonapipokedex.presentation.view
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -36,13 +38,14 @@ class MainActivity : AppCompatActivity() {
         setAnimation()
     }
 
-    private fun setViewModel(){
+    private fun setViewModel() {
         viewModel.requestNamesPokemon()
     }
 
-    private fun setObserves(){
+    private fun setObserves() {
         viewModel.acton.observe(this) {
-            startExplosion()
+            setAction(it)
+
         }
 
         viewModel.listPokemon.observe(this) {
@@ -59,9 +62,32 @@ class MainActivity : AppCompatActivity() {
                 }
     }
 
+    private fun setAction(action: PokemonViewModel.ActionView) {
+        when (action) {
+            PokemonViewModel.ActionView.Animation -> startExplosion()
+            PokemonViewModel.ActionView.Finish -> finish()
+        }
+    }
+
     private fun setVisibility(response: ResponseMainViewFlow) {
         loading.isVisible = response.loading
         toolbar.isVisible = true
+        setupModalError(response.error)
+    }
+
+    private fun setupModalError(isShowModalErrorVisible: Boolean) {
+        if (isShowModalErrorVisible) {
+            AlertDialog.Builder(this)
+                .setTitle("Connection problem")
+                .setMessage("You don't have internet")
+                .setPositiveButton("Try again") { dialog: DialogInterface?, which: Int -> viewModel.onClickTryAgain() }
+                .setNegativeButton("Exit") { dialog: DialogInterface?, which: Int ->
+                    viewModel.onClickQuit()
+                }
+                .setCancelable(false)
+                .create()
+                .show()
+        }
     }
 
     private fun startExplosion() {

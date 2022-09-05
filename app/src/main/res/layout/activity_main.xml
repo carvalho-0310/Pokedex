@@ -25,18 +25,6 @@
             app:layout_constraintTop_toBottomOf="@+id/toolbar_id"
             app:navGraph="@navigation/main_navigation" />
 
-        <View
-            android:id="@+id/pokeboll"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
-            android:layout_gravity="center"
-            android:background="@drawable/pokebola"
-            android:visibility="invisible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar_id" />
-
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="200dp"
@@ -79,6 +67,17 @@
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
+        <View
+            android:id="@+id/pokeboll"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center"
+            android:background="@drawable/pokebola"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_id" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

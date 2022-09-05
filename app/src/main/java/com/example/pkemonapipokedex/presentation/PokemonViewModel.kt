@@ -7,9 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.pkemonapipokedex.data.repository.PokemonRepositoryImpl
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.presentation.PokemonViewModel.Response.ResponseMainViewFlow
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 
 class PokemonViewModel(
     private val repository: PokemonRepositoryImpl
@@ -82,7 +80,10 @@ class PokemonViewModel(
 
     fun startAnimation() {
         _acton.postValue(ActionView.Animation)
-        showToolbar(false)
+        MainScope().launch {
+            delay(1250)
+            showToolbar(false)
+        }
     }
 
     fun showToolbar(visibility: Boolean) {

@@ -75,11 +75,11 @@ class MainActivity : AppCompatActivity() {
         setupModalError(response.error)
     }
 
-    private fun setLoading(visibility: Boolean){
+    private fun setLoading(visibility: Boolean) {
         loading.isVisible = visibility
     }
 
-    private fun setToolbar(visibility: Boolean){
+    private fun setToolbar(visibility: Boolean) {
         toolbar.isVisible = visibility
     }
 

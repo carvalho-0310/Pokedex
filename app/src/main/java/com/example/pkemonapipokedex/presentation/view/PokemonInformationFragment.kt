@@ -89,7 +89,7 @@ class PokemonInformationFragment : MainViewModel() {
 
     override fun onDestroy() {
         super.onDestroy()
-        mainViewModel.startAnimation()
+        mainViewModel.showToolbar(true)
         toolbar.isVisible = false
     }
 }

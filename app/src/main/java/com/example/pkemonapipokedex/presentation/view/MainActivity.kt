@@ -44,12 +44,12 @@ class MainActivity : AppCompatActivity() {
 
     private fun setObserves() {
         viewModel.acton.observe(this) {
-            setAction(it)
+            notifyAction(it)
 
         }
 
         viewModel.listPokemon.observe(this) {
-            setVisibility(it)
+            notifyVisibility(it)
         }
     }
 
@@ -62,17 +62,25 @@ class MainActivity : AppCompatActivity() {
                 }
     }
 
-    private fun setAction(action: PokemonViewModel.ActionView) {
+    private fun notifyAction(action: PokemonViewModel.ActionView) {
         when (action) {
             PokemonViewModel.ActionView.Animation -> startExplosion()
             PokemonViewModel.ActionView.Finish -> finish()
         }
     }
 
-    private fun setVisibility(response: ResponseMainViewFlow) {
-        loading.isVisible = response.loading
-        toolbar.isVisible = true
+    private fun notifyVisibility(response: ResponseMainViewFlow) {
+        setLoading(response.loading)
+        setToolbar(response.toolbar)
         setupModalError(response.error)
+    }
+
+    private fun setLoading(visibility: Boolean){
+        loading.isVisible = visibility
+    }
+
+    private fun setToolbar(visibility: Boolean){
+        toolbar.isVisible = visibility
     }
 
     private fun setupModalError(isShowModalErrorVisible: Boolean) {
@@ -94,6 +102,5 @@ class MainActivity : AppCompatActivity() {
         pokeBoll.startAnimation(animationExplosion) {
             pokeBoll.isVisible = false
         }
-        toolbar.isVisible = !toolbar.isVisible
     }
 }

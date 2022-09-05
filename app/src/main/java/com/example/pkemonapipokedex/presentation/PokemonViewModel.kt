@@ -16,9 +16,10 @@ class PokemonViewModel(
 ) : ViewModel() {
 
     private val offset = 0
-    private val limit = 15
+    private val limit = 20
 
     private var namesPokemon = mutableListOf<String>()
+    private val listPokemonInformation = mutableListOf<InformationPokemon>()
 
     private val _listPokemon = MutableLiveData<ResponseMainViewFlow>()
     val listPokemon: LiveData<ResponseMainViewFlow>
@@ -35,21 +36,21 @@ class PokemonViewModel(
             }.onSuccess {
                 requestInformation()
             }.onFailure {
-                val response = ResponseMainViewFlow(
-                    listPokemon = emptyList(),
-                    loading = false,
-                    view = true,
-                    error = true
+                _listPokemon.postValue(
+                    ResponseMainViewFlow(
+                        listPokemonInformation,
+                        loading = false,
+                        toolbar = true,
+                        error = true
+                    )
                 )
-                _listPokemon.postValue(response)
             }
         }
     }
 
     private fun requestInformation() {
         viewModelScope.launch {
-            val listPokemonInformation = mutableListOf<InformationPokemon>()
-
+            listPokemonInformation.clear()
             kotlin.runCatching {
                 namesPokemon.forEach {
                     val pokemon = withContext(Dispatchers.Default) {
@@ -58,27 +59,41 @@ class PokemonViewModel(
                     listPokemonInformation.add(pokemon)
                 }
             }.onSuccess {
-                val response = ResponseMainViewFlow(
-                    listPokemonInformation,
-                    loading = false,
-                    view = true,
-                    error = false
+                _listPokemon.postValue(
+                    ResponseMainViewFlow(
+                        listPokemonInformation,
+                        loading = false,
+                        toolbar = true,
+                        error = false
+                    )
                 )
-                _listPokemon.postValue(response)
             }.onFailure {
-                val response = ResponseMainViewFlow(
-                    listPokemonInformation,
-                    loading = false,
-                    view = true,
-                    error = true
+                _listPokemon.postValue(
+                    ResponseMainViewFlow(
+                        listPokemonInformation,
+                        loading = false,
+                        toolbar = true,
+                        error = true
+                    )
                 )
-                _listPokemon.postValue(response)
             }
         }
     }
 
     fun startAnimation() {
         _acton.postValue(ActionView.Animation)
+        showToolbar(false)
+    }
+
+    fun showToolbar(visibility: Boolean) {
+        _listPokemon.postValue(
+            ResponseMainViewFlow(
+                listPokemonInformation,
+                loading = false,
+                toolbar = visibility,
+                error = false
+            )
+        )
     }
 
     fun onClickQuit() {
@@ -100,7 +115,7 @@ class PokemonViewModel(
         data class ResponseMainViewFlow(
             val listPokemon: List<InformationPokemon>,
             val loading: Boolean,
-            val view: Boolean,
+            val toolbar: Boolean,
             val error: Boolean
         ) : Response()
     }

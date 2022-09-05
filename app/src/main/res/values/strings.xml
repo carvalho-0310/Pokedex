@@ -10,7 +10,7 @@
     <string name="previous">Previous</string>
     <string name="height">height: %s m</string>
     <string name="weight">weight: %s Kg</string>
-    <string name="toolbar_information">ID#  %s   Name - %s </string>
+    <string name="toolbar_information">ID - %s   Name - %s </string>
     <string name="type">Type</string>
     <string name="moves">Moves</string>
     <string name="power">power: %s</string>

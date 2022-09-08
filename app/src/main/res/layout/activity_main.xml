@@ -42,7 +42,7 @@
             android:layout_height="?actionBarSize"
             android:background="@color/black_pokemon"
             android:gravity="center_vertical"
-            android:visibility="gone"
+            android:visibility="invisible"
             android:orientation="horizontal"
             android:paddingStart="15dp"
             android:paddingEnd="15dp"

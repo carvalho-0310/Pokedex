@@ -1,10 +1,11 @@
 package com.example.pkemonapipokedex.domain.model
 
+import com.example.pkemonapipokedex.presentation.adapter.DiffUtilGeneric.Compare
 import java.io.Serializable
 import java.math.BigDecimal
 
 data class InformationPokemon(
-    val id: Int,
+    override val id: Int,
     val name: String,
     val height: BigDecimal,
     val weight: BigDecimal,
@@ -12,7 +13,12 @@ data class InformationPokemon(
     val spritesToolbar: String,
     val sprites: String,
     val types: List<TypePossible>,
-) : Serializable
+) : Serializable, Compare<InformationPokemon> {
+
+    override fun isEqual(o: InformationPokemon): Boolean {
+        return equals(o)
+    }
+}
 
 enum class TypePossible(type: String) {
     BUG("bug"),

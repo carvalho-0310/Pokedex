@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pkemonapipokedex.R
@@ -16,6 +17,8 @@ import kotlinx.coroutines.launch
 class ListPokemonFragment : MainViewModel() {
 
     private lateinit var rvPokemon: RecyclerView
+    private lateinit var adapter: ListPokemonAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,14 +29,30 @@ class ListPokemonFragment : MainViewModel() {
         super.onViewCreated(view, savedInstanceState)
 
         rvPokemon = view.findViewById(R.id.rv_pokemon)
+        adapter = ListPokemonAdapter(this)
+        rvPokemon.adapter = adapter
 
+        rvPokemon.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    mainViewModel.onScrollFinal()
+                }
+            }
+        })
         setObserve()
     }
 
     private fun setObserve() {
         super.mainViewModel.listPokemon.observe(viewLifecycleOwner) {
-            rvPokemon.adapter = ListPokemonAdapter(this, it.listPokemon)
+            rvPokemon.isVisible = !it.loading
+            setListAdapter(it.listPokemon)
         }
+    }
+
+    private fun setListAdapter(list: List<InformationPokemon>) {
+        adapter.setList(list)
+
     }
 
     fun openInformation(pokemon: InformationPokemon) {

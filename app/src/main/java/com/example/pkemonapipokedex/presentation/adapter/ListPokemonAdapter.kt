@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.AppCompatCheckedTextView
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pkemonapipokedex.R
@@ -13,9 +14,19 @@ import com.example.pkemonapipokedex.presentation.view.ListPokemonFragment
 
 class ListPokemonAdapter(
     private val pokemonFragment: ListPokemonFragment,
-    private val list: List<InformationPokemon>
 ) :
     RecyclerView.Adapter<ListPokemonAdapter.ViewHolder>() {
+
+    private val list: MutableList<InformationPokemon> = ArrayList()
+
+   fun setList(newList: List<InformationPokemon>) {
+       val diffResult = DiffUtil.calculateDiff(DiffUtilGeneric(list, newList))
+       list.clear()
+       list.addAll(newList)
+
+       diffResult.dispatchUpdatesTo(this)
+   }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)

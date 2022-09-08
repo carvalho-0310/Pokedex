@@ -14,9 +14,6 @@ import com.example.pkemonapipokedex.R
 import com.example.pkemonapipokedex.presentation.PokemonViewModel
 import com.example.pkemonapipokedex.presentation.PokemonViewModel.Response.ResponseMainViewFlow
 import com.example.pkemonapipokedex.presentation.startAnimation
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {

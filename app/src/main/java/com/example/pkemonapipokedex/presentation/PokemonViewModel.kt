@@ -7,14 +7,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.pkemonapipokedex.data.repository.PokemonRepositoryImpl
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.presentation.PokemonViewModel.Response.ResponseMainViewFlow
-import kotlinx.coroutines.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 
 class PokemonViewModel(
     private val repository: PokemonRepositoryImpl
 ) : ViewModel() {
 
-    private val offset = 0
+    private var offset = 0
     private val limit = 20
+    private var valid = true
 
     private var namesPokemon = mutableListOf<String>()
     private val listPokemonInformation = mutableListOf<InformationPokemon>()
@@ -28,27 +33,42 @@ class PokemonViewModel(
         get() = _acton
 
     fun requestNamesPokemon() {
-        viewModelScope.launch {
-            kotlin.runCatching {
-                namesPokemon = repository.getListPokemon(limit, offset).names.toMutableList()
-            }.onSuccess {
-                requestInformation()
-            }.onFailure {
-                _listPokemon.postValue(
-                    ResponseMainViewFlow(
-                        listPokemonInformation,
-                        loading = false,
-                        toolbar = true,
-                        error = true
-                    )
+        if (valid) {
+            valid = false
+            _listPokemon.postValue(
+                ResponseMainViewFlow(
+                    listPokemonInformation,
+                    loading = true,
+                    toolbar = true,
+                    error = false
                 )
+            )
+            viewModelScope.launch {
+
+                kotlin.runCatching {
+                    namesPokemon = repository.getListPokemon(limit, offset).names.toMutableList()
+                }.onSuccess {
+                    requestInformation()
+                    offset += limit
+                    valid = true
+
+                }.onFailure {
+                    _listPokemon.postValue(
+                        ResponseMainViewFlow(
+                            listPokemonInformation,
+                            loading = false,
+                            toolbar = true,
+                            error = true
+                        )
+                    )
+                    valid = true
+                }
             }
         }
     }
 
     private fun requestInformation() {
         viewModelScope.launch {
-            listPokemonInformation.clear()
             kotlin.runCatching {
                 namesPokemon.forEach {
                     val pokemon = withContext(Dispatchers.Default) {
@@ -95,6 +115,10 @@ class PokemonViewModel(
                 error = false
             )
         )
+    }
+
+    fun onScrollFinal(){
+        requestNamesPokemon()
     }
 
     fun onClickQuit() {

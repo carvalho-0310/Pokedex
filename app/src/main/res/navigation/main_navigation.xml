@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_list_pokemons">
         <action
             android:id="@+id/goToInformation"
-            app:destination="@id/pokemonInformationFragment" />
+            app:destination="@id/pokemonInformationFragment"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/pokemonInformationFragment"

@@ -19,6 +19,7 @@ class ListPokemonFragment : MainViewModel() {
     private lateinit var rvPokemon: RecyclerView
     private lateinit var adapter: ListPokemonAdapter
 
+    private var validClick = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,7 +36,7 @@ class ListPokemonFragment : MainViewModel() {
         rvPokemon.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1)) {
+                if (!recyclerView.canScrollVertically(2)) {
                     mainViewModel.onScrollFinal()
                 }
             }
@@ -45,7 +46,7 @@ class ListPokemonFragment : MainViewModel() {
 
     private fun setObserve() {
         super.mainViewModel.listPokemon.observe(viewLifecycleOwner) {
-            rvPokemon.isVisible = !it.loading
+            rvPokemon.isVisible = it.pokemon
             setListAdapter(it.listPokemon)
         }
     }
@@ -56,12 +57,15 @@ class ListPokemonFragment : MainViewModel() {
     }
 
     fun openInformation(pokemon: InformationPokemon) {
-
-        val selectedPokemon = ListPokemonFragmentDirections.goToInformation(pokemon)
-        mainViewModel.startAnimation()
-        MainScope().launch {
-            delay(1250)
-            findNavController().navigate(selectedPokemon)
+        if (validClick) {
+            validClick = false
+            val selectedPokemon = ListPokemonFragmentDirections.goToInformation(pokemon)
+            mainViewModel.startAnimation()
+            MainScope().launch {
+                delay(1250)
+                findNavController().navigate(selectedPokemon)
+                validClick = true
+            }
         }
     }
 }

@@ -11,6 +11,7 @@
     <color name="red_pokemon">#E12F34</color>
     <color name="white_pokemon">#F1F1F1</color>
     <color name="black_pokemon">#1E1C1C</color>
+    <color name="black_pokemon_trans">#4D1E1C1C</color>
 
     <color name="bug">#3B9950</color>
     <color name="bugOptional">#1C4B27</color>

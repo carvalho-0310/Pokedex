@@ -19,7 +19,7 @@ class PokemonViewModel(
 
     private var offset = 0
     private val limit = 20
-    private var valid = true
+    private var requestAvailable = true
 
     private var namesPokemon = mutableListOf<String>()
     private val listPokemonInformation = mutableListOf<InformationPokemon>()
@@ -33,14 +33,17 @@ class PokemonViewModel(
         get() = _acton
 
     fun requestNamesPokemon() {
-        if (valid) {
-            valid = false
+        if (requestAvailable) {
+
+            requestAvailable = false
+
             _listPokemon.postValue(
                 ResponseMainViewFlow(
                     listPokemonInformation,
                     loading = true,
                     toolbar = true,
-                    error = false
+                    error = false,
+                    pokemon = true
                 )
             )
             viewModelScope.launch {
@@ -49,8 +52,6 @@ class PokemonViewModel(
                     namesPokemon = repository.getListPokemon(limit, offset).names.toMutableList()
                 }.onSuccess {
                     requestInformation()
-                    offset += limit
-                    valid = true
 
                 }.onFailure {
                     _listPokemon.postValue(
@@ -58,10 +59,11 @@ class PokemonViewModel(
                             listPokemonInformation,
                             loading = false,
                             toolbar = true,
-                            error = true
+                            error = true,
+                            pokemon = true
                         )
                     )
-                    valid = true
+                    requestAvailable = true
                 }
             }
         }
@@ -82,16 +84,20 @@ class PokemonViewModel(
                         listPokemonInformation,
                         loading = false,
                         toolbar = true,
-                        error = false
+                        error = false,
+                        pokemon = true
                     )
                 )
+                offset += limit
+                requestAvailable = true
             }.onFailure {
                 _listPokemon.postValue(
                     ResponseMainViewFlow(
                         listPokemonInformation,
                         loading = false,
                         toolbar = true,
-                        error = true
+                        error = true,
+                        pokemon = true
                     )
                 )
             }
@@ -112,7 +118,8 @@ class PokemonViewModel(
                 listPokemonInformation,
                 loading = false,
                 toolbar = visibility,
-                error = false
+                error = false,
+                pokemon = true
             )
         )
     }
@@ -140,6 +147,7 @@ class PokemonViewModel(
         data class ResponseMainViewFlow(
             val listPokemon: List<InformationPokemon>,
             val loading: Boolean,
+            val pokemon: Boolean,
             val toolbar: Boolean,
             val error: Boolean
         ) : Response()

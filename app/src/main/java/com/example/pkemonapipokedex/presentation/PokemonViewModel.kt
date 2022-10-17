@@ -7,18 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.example.pkemonapipokedex.data.repository.PokemonRepositoryImpl
 import com.example.pkemonapipokedex.domain.model.InformationPokemon
 import com.example.pkemonapipokedex.presentation.PokemonViewModel.Response.ResponseMainViewFlow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
+
+const val LAST_POKEMON = 493
 
 class PokemonViewModel(
     private val repository: PokemonRepositoryImpl
 ) : ViewModel() {
 
     private var offset = 0
-    private val limit = 20
+    private var limit = 20
     private var requestAvailable = true
 
     private var namesPokemon = mutableListOf<String>()
@@ -33,7 +31,7 @@ class PokemonViewModel(
         get() = _acton
 
     fun requestNamesPokemon() {
-        if (requestAvailable) {
+        if (requestAvailable && offset != LAST_POKEMON) {
 
             requestAvailable = false
 
@@ -63,7 +61,6 @@ class PokemonViewModel(
                             pokemon = true
                         )
                     )
-                    requestAvailable = true
                 }
             }
         }
@@ -72,12 +69,11 @@ class PokemonViewModel(
     private fun requestInformation() {
         viewModelScope.launch {
             kotlin.runCatching {
-                namesPokemon.forEach {
-                    val pokemon = withContext(Dispatchers.Default) {
+                listPokemonInformation.addAll(namesPokemon.map {
+                    async {
                         repository.getInformationPokemon(it)
                     }
-                    listPokemonInformation.add(pokemon)
-                }
+                }.awaitAll())
             }.onSuccess {
                 _listPokemon.postValue(
                     ResponseMainViewFlow(
@@ -88,7 +84,8 @@ class PokemonViewModel(
                         pokemon = true
                     )
                 )
-                offset += limit
+                hasLastPokemon()
+
                 requestAvailable = true
             }.onFailure {
                 _listPokemon.postValue(
@@ -101,6 +98,13 @@ class PokemonViewModel(
                     )
                 )
             }
+        }
+    }
+
+    private fun hasLastPokemon() {
+        offset += limit
+        if ((offset + limit) >= LAST_POKEMON) {
+            limit = LAST_POKEMON - offset
         }
     }
 
@@ -124,7 +128,7 @@ class PokemonViewModel(
         )
     }
 
-    fun onScrollFinal(){
+    fun onScrollFinal() {
         requestNamesPokemon()
     }
 
@@ -133,6 +137,7 @@ class PokemonViewModel(
     }
 
     fun onClickTryAgain() {
+        requestAvailable = true
         namesPokemon.clear()
         requestNamesPokemon()
     }

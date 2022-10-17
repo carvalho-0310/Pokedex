@@ -8,9 +8,10 @@
     android:layout_margin="4dp"
     android:gravity="center"
     android:paddingHorizontal="4dp"
-    app:cornerRadius="30dp"
+    android:clickable="false"
     android:textStyle="bold"
     android:backgroundTint="@color/white_pokemon"
+    app:cornerRadius="30dp"
     tools:text="water">
 
 </com.google.android.material.button.MaterialButton>

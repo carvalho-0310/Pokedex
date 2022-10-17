@@ -13,14 +13,14 @@ class ListTypeAdapter(private val list: List<TypePossible>) :
     RecyclerView.Adapter<ListTypeAdapter.ViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListTypeAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return ListTypeAdapter.ViewHolder(
+        return ViewHolder(
             layoutInflater.inflate(R.layout.model_types_pokemon, parent, false)
         )
     }
 
-    override fun onBindViewHolder(holder: ListTypeAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding(list[position])
     }
 

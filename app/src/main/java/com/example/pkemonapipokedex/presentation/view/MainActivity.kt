@@ -20,6 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var toolbar: View
     private lateinit var pokeBoll: View
+    private lateinit var block: View
     private lateinit var loading: ProgressBar
     private lateinit var animationExplosion: Animation
 
@@ -31,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         loading = findViewById(R.id.loading)
         pokeBoll = findViewById(R.id.pokeboll)
+        block = findViewById(R.id.block)
         toolbar = findViewById(R.id.toolbar_id)
 
         setViewModel()
@@ -71,12 +73,17 @@ class MainActivity : AppCompatActivity() {
 
     private fun notifyVisibility(response: ResponseMainViewFlow) {
         setLoading(response.loading)
+        setBlock(response.loading)
         setToolbar(response.toolbar)
         setupModalError(response.error)
     }
 
     private fun setLoading(visibility: Boolean) {
         loading.isVisible = visibility
+    }
+
+    private fun setBlock(visibility: Boolean) {
+        block.isVisible = visibility
     }
 
     private fun setToolbar(visibility: Boolean) {
@@ -99,8 +106,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startExplosion() {
+        setBlock(true)
         pokeBoll.startAnimation(animationExplosion) {
             pokeBoll.isVisible = false
+            setBlock(false)
         }
     }
 }
